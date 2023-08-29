@@ -1,7 +1,6 @@
+COMPOSE =  docker-compose -f docker-compose.dev.yml
 ifeq ($(RUNTIME_ENV), production)
 	COMPOSE = sudo docker-compose -f docker-compose.yml
-else:
-	COMPOSE = sudo docker-compose -f docker-compose.dev.yml
 endif
 
 SERVICE = app
@@ -12,11 +11,14 @@ up:
 up-d:
 	$(COMPOSE) up -d
 
+build:
+	$(COMPOSE) build
+
 down:
 	$(COMPOSE) down
 
-makemigrations:
-	$(COMPOSE) run $(SERVICE) alembic revision --autogenerate -m $(NAME)
+migrations:
+	$(COMPOSE) run $(SERVICE) alembic revision --autogenerate -m "First Migration"
 
 migrate:
 	$(COMPOSE) run $(SERVICE) alembic upgrade head

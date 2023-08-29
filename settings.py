@@ -20,7 +20,7 @@ class Settings:
     DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
     DB_PORT = os.environ.get("POSTGRES_PORT")
     DB_HOST = os.environ.get("POSTGRES_HOST")
-    DATABASE_URL = ""
+    DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@db:{DB_PORT}/{DB_NAME}"
 
 
 settings: Settings = Settings()

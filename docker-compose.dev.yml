@@ -28,4 +28,4 @@ services:
     restart: always
 
 volumes:
-  db:
+  postgres_data:
