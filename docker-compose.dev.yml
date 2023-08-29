@@ -1,0 +1,31 @@
+version: '4.22'
+
+services:
+  db:
+    container_name: finapp_postgres_db
+    image: postgres:12
+    restart: always
+    ports:
+      - '5435:5432'
+    env_file:
+      - ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  app:
+    container_name: finapp
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  db:
