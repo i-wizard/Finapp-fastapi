@@ -5,12 +5,11 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from helpers.db_helper import Base
 from settings import settings
-from apps.wallet import models as wallet_models
 from apps.user import models as user_models
+from apps.wallet import models as wallet_models
+from helpers.db_helper import Base
 
-print("user_models>>>", user_models)
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

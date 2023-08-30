@@ -21,6 +21,11 @@ class Settings:
     DB_PORT = os.environ.get("POSTGRES_PORT")
     DB_HOST = os.environ.get("POSTGRES_HOST")
     DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@db:{DB_PORT}/{DB_NAME}"
+    ACCESS_TOKEN_EXPIRE_MINUTES = os.environ.get("ACCESS_TOKEN")
+    REFRESH_TOKEN_EXPIRE_MINUTES = os.environ.get("REFRESH_TOKEN")
+    ALGORITHM = "HS256"
+    JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']  # should be kept secret
+    JWT_REFRESH_SECRET_KEY = os.environ['JWT_REFRESH_SECRET_KEY']
 
 
 settings: Settings = Settings()

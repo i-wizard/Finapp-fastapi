@@ -18,7 +18,13 @@ down:
 	$(COMPOSE) down
 
 migrations:
-	$(COMPOSE) run $(SERVICE) alembic revision --autogenerate -m "First Migration"
+	$(COMPOSE) run $(SERVICE) alembic revision --autogenerate
 
 migrate:
 	$(COMPOSE) run $(SERVICE) alembic upgrade head
+
+history:
+	$(COMPOSE) run $(SERVICE) alembic history
+
+downgrade:
+	$(COMPOSE) run $(SERVICE) alembic downgrade $(HASH)

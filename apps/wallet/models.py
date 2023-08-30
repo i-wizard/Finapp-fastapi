@@ -1,11 +1,12 @@
 from sqlalchemy import Column, Float, Boolean, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from helpers.db_helper import BaseModelMixin, Base
+from helpers.db_helper import Base, BaseModelMixin
 from apps.user.models import User
 
 
 class Wallet(BaseModelMixin, Base):
+    __tablename__ = "wallet"
     balance = Column(Float, default=0)
     is_active = Column(Boolean, default=True)
     user_id = Column(String(256), ForeignKey(User.id, ondelete="CASCADE"))
@@ -14,6 +15,7 @@ class Wallet(BaseModelMixin, Base):
 
 
 class Transaction(BaseModelMixin, Base):
+    __tablename__ = "transaction"
     amount = Column(Float, nullable=False)
     balance = Column(Float, nullable=False)
     note = Column(String(256), nullable=True)

@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from helpers.db_helper import engine
 from apps.user import models as user_models
 from apps.wallet import models as wallet_models
+from apps.user.api import auth
 
 
 user_models.Base.metadata.create_all(bind=engine)
@@ -25,3 +26,6 @@ app = FastAPI(
 @app.get("/")
 def home():
     return {"message":"Welcome home"}
+
+
+app.include_router(auth.router)
