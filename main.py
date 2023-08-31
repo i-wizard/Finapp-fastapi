@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from helpers.db_helper import engine
 from apps.user import models as user_models
 from apps.wallet import models as wallet_models
-from apps.user.api import auth
+from apps.user.api import auth, user
+from apps.wallet.api import wallet
 
 
 user_models.Base.metadata.create_all(bind=engine)
@@ -29,3 +30,5 @@ def home():
 
 
 app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(wallet.router)

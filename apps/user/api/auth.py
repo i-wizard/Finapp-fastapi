@@ -2,7 +2,7 @@ import fastapi
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
-from apps.user.schema.auth import RegisterSchema, LoginResponseSchema, UserSchema
+from apps.user.schema.auth import RegisterSchema, LoginResponseSchema
 from apps.user.service.auth_service import AuthService, AuthHelper
 from helpers.db_helper import get_db
 
@@ -23,16 +23,13 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     user = AuthService.get_user(db, form_data.username)
     if user is None:
         raise HTTPException(
-            detail="USer not found",
+            detail="User not found",
             status_code=404
         )
-    if not AuthHelper.verify_password(user.password, form_data.password):
+    if not AuthHelper.verify_password(form_data.password, user.password):
         raise HTTPException(detail="Invalid password", status_code=403)
     return {
         "access_token": AuthHelper.create_access_token(user.id),
         "refresh_token": AuthHelper.create_refresh_token(user.id)
     }
 
-@router.post("/user/me", status_code=200, summary="User login", response_model=UserSchema)
-def get_profile():
-    pass

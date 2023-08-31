@@ -22,7 +22,7 @@ class TokenPayload(BaseModel):
 
 
 def get_current_user(token: str = Depends(reuseable_oauth), db:Session = Depends(get_db)) -> User:
-    from apps.user.service.auth_service import AuthService
+    from apps.user.service.user_service import UserService
     try:
         payload = jwt.decode(
             token, settings.JWT_SECRET_KEY, algorithms=[settings.ALGORITHM]
@@ -41,8 +41,8 @@ def get_current_user(token: str = Depends(reuseable_oauth), db:Session = Depends
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-
-    user = AuthService.get_user(db, token_data.sub)
+    print("token_data.sub>>>", token_data.sub)
+    user = UserService.get_user(db, token_data.sub)
 
     if user is None:
         raise HTTPException(

@@ -16,6 +16,6 @@ class User(BaseModelMixin, Base):
     email = Column(String(256), nullable=False, index=True)
     is_verified = Column(Boolean, default=False)
     password = Column(String(256), nullable=False)
-    role = Column(Enum(UserRoleEnum), default=1)
+    role = Column(Enum(UserRoleEnum), default=UserRoleEnum.user)
     wallet = relationship("Wallet", uselist=False, back_populates="user", cascade="all, delete")
 

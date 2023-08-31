@@ -9,7 +9,7 @@ from settings import settings
 
 
 def generate_id():
-    return uuid.uuid4
+    return uuid.uuid4().hex
 
 
 
